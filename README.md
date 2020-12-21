@@ -8,7 +8,7 @@
 4. Install [virtualenv](https://packaging.python.org/guides/installing-using-pip-and-virtualenv/#installing-virtualenv).
 5. Create a new virtualenv called "ENV": `virtualenv ENV`.
 6. Set the local virtualenv to "ENV": `source ENV/bin/activate`.
-For Windows: `.\env\Scripts\activate`.
+For Windows: `.\ENV\Scripts\activate`.
 
 If all went well then your command line prompt should now start with `(ENV)`.
 
