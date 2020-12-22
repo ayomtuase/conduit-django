@@ -1,5 +1,7 @@
 # Conduit
 
+This repo follows [gothinkster django real world example app](https://github.com/gothinkster/django-realworld-example-app)
+
 ## Installation
 
 1. Install [Python 3.7.2](https://www.python.org/downloads/release/python-372/).
