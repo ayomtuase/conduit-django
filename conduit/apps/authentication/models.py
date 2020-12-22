@@ -10,7 +10,7 @@ from datetime import datetime, timedelta
 
 class UserManager(BaseUserManager):
 
-	def create_user(username, email, password=None):
+	def create_user(self, username, email, password=None):
 		if username == None:
 			raise TypeError('Users must have a username')
 
@@ -23,12 +23,12 @@ class UserManager(BaseUserManager):
 
 		return user
 
-	def create_superuser(username, email, password):		
+	def create_superuser(self, username, email, password):		
 
 		if not password:
 			raise TypeError('Superuser must have a password')
 
-		user = create_user(username=username, email=email, password=password)
+		user = self.create_user(username=username, email=email, password=password)
 		user.is_superuser = True
 		user.is_staff = True
 		user.save()
@@ -66,7 +66,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 		token = jwt.encode({
 			'id' : self.pk,
-			'exp' : int(dt.strftime('%s'))
+			'exp' : int(dt.strftime('%S'))
 			}, settings.SECRET_KEY, algorithm= 'HS256')
 
 		return token.decode('utf-8')
