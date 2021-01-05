@@ -1,10 +1,10 @@
 from rest_framework import serializers
 from .models import User
 
-class RegistrationSerializer(serializers.ModelSerializers):
+class RegistrationSerializer(serializers.ModelSerializer):
 
-	password = models.CharField(min_length=8, max_length=128, write_only=True)
-	token = models.CharField(read_only=True)
+	password = serializers.CharField(min_length=8, max_length=128, write_only=True)
+	token = serializers.CharField(read_only=True)
 
 	class Meta:
 		model = User
