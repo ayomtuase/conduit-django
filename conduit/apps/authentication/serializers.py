@@ -44,3 +44,22 @@ class LoginSerializer(serializers.Serializer):
 			'username' : user.username,
 			'token' : user.token
 			}
+
+class UserSerializer(serializers.ModelSerializer):
+	password = serializers.CharField(min_length=8, max_length=128, write_only=True)
+	
+	class Meta:
+		model = User
+		fields = ['email', 'username', 'password', 'token']
+		read_only_fields = ['token',]
+
+	def update(self, instance, validated_data):
+		password = validated_data.pop('password')
+
+		for key, value in validated_data.items():
+			setattr(instance, key, value)
+
+		instance.set_password(password)
+		instance.save()
+		print(type(instance))
+		return instance
