@@ -1,18 +1,18 @@
-import json
-from rest_framework.renderers import JSONRenderer
+from conduit.apps.core.renderers import ConduitJSONRenderer
 
-class  UserJSONRenderer(JSONRenderer):
-	charset = 'utf-8'
+class  UserJSONRenderer(ConduitJSONRenderer):
+	object_label = 'user'
 
-	def render(self, data, media_type=None, renderer_context=None):
-
-		errors = data.get('errors', None)		
+	def render(self, data, media_type=None, renderer_context=None):				
 		
 		token = data.get('token', None)
 		if token is not None and isinstance(token, bytes):
 			data['token'] = token.decode(charset)
 
-		if errors is not None:
-			return super(UserJSONRenderer, self).render(data)
+		return super(UserJSONRenderer, self).render(data)
 
-		return json.dumps({'user' : data})
+			
+
+		
+
+		
