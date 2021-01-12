@@ -97,3 +97,5 @@ __test__.py
 # VSCode file
 settings.json
 launch.json
+conduit/apps/profiles/migrations/0001_initial.py
+conduit/apps/profiles/smiley-cyrus.jpg
