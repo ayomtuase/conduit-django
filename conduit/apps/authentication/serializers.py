@@ -60,6 +60,5 @@ class UserSerializer(serializers.ModelSerializer):
 			setattr(instance, key, value)
 
 		instance.set_password(password)
-		instance.save()
-		print(type(instance))
+		instance.save()		
 		return instance
