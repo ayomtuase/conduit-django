@@ -3,6 +3,7 @@ from rest_framework.views import exception_handler
 def core_exception_handler(exc, concept):
 	response = exception_handler(exc, concept)
 	handlers = {
+		'ProfileDoesNotExist' : _handle_generic_error,
 		'ValidationError' : _handle_generic_error
 	}
 
