@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from .models import User
 from django.contrib.auth import authenticate
+from conduit.apps.profiles.serializers import ProfileSerializer
+from .models import User 
 
 class RegistrationSerializer(serializers.ModelSerializer):
 
@@ -47,18 +49,30 @@ class LoginSerializer(serializers.Serializer):
 
 class UserSerializer(serializers.ModelSerializer):
 	password = serializers.CharField(min_length=8, max_length=128, write_only=True)
+	profile = ProfileSerializer(write_only=True)
+
+	bio = serializers.CharField(source='profile.bio', read_only=True)
+	image = serializers.CharField(source='profile.image', read_only=True)
 	
 	class Meta:
 		model = User
-		fields = ['email', 'username', 'password', 'token']
+		fields = ['email', 'username', 'password', 'token', 'profile', 'bio', 'image']
 		read_only_fields = ['token',]
 
 	def update(self, instance, validated_data):
 		password = validated_data.pop('password')
 
+		profile_data = validated_data.pop('profile', {})
+
 		for key, value in validated_data.items():
 			setattr(instance, key, value)
 
-		instance.set_password(password)
+		for key, value in profile_data.items():
+			setattr(instance.profile, key, value)
+
+		instance.profile.save()
+		if password is not None:
+			instance.set_password(password)
+			
 		instance.save()		
 		return instance
