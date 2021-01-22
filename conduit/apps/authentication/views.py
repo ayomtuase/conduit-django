@@ -45,10 +45,11 @@ class UserRetrieveUpdateAPIView(APIView):
 		serializer_data = {			
 			"username" : user_data.get('username', request.user.username),
 			"email" : user_data.get('email', request.user.email),
+			"password" : user_data.get('password', request.user.password),
 
 			"profile" : {
-				"bio" : user_data.profile.get('bio', request.user.profile.bio),
-				"image" : user_data.profile.get('image', request.user.profile.image),
+				"bio" : user_data.get('bio', request.user.profile.bio),
+				"image" : user_data.get('image', request.user.profile.image),
 			}
 
 
